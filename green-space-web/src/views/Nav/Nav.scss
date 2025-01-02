@@ -1,0 +1,26 @@
+.inputSearch {
+  width: 0; /* Mặc định không có chiều rộng */
+  font-size: 16px;
+  border-radius: 9999px;
+  border: 3px solid #ccc;
+  outline: none;
+  padding-left: 55px; /* Để chừa chỗ cho biểu tượng tìm kiếm */
+  opacity: 0; /* Ban đầu là không nhìn thấy */
+  transition: width 0.3s ease, opacity 0.3s ease; /* Thêm hiệu ứng chuyển động */
+  margin-left: 6px;
+}
+
+.inputSearch.open {
+  width: 250px; /* Mở rộng khi mở tìm kiếm */
+  opacity: 1;
+  border-color: #4caf50;
+}
+
+.inputSearch.closed {
+  width: 0;
+  opacity: 0;
+}
+
+.inputSearch + button {
+  transition: transform 0.3s ease; /* Thêm hiệu ứng cho biểu tượng */
+}
