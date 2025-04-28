@@ -213,12 +213,6 @@ class Nav extends Component {
                     href="/#"
                     className="block px-4 py-2 hover:bg-green-700 hover:text-white rounded-t"
                   >
-                    Hỗ Trợ Khách Hàng
-                  </a>
-                  <a
-                    href="/#"
-                    className="block px-4 py-2 hover:bg-green-700 hover:text-white"
-                  >
                     Hướng Dẫn Mua Hàng
                   </a>
                   <a
