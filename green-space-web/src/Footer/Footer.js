@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { SiZalo } from "react-icons/si";
 import { FaFacebookF, FaInstagram, FaYoutube } from "react-icons/fa";
+import { NavLink } from "react-router-dom";
+import { Nav } from "react-bootstrap";
 
 class Footer extends Component {
   render() {
@@ -32,34 +34,34 @@ class Footer extends Component {
               <div className="w-full lg:w-4/12 px-4 mb-8 lg:mb-0">
                 <h5 className="text-xl font-semibold mb-4">Kết nối với chúng tôi</h5>
                 <div className="flex space-x-4">
-                  <a
+                  <NavLink
                     href="#"
                     className="bg-white text-green-600 p-2 rounded-full shadow-md"
                     aria-label="Follow us on Zalo"
                   >
                     <SiZalo size={24} />
-                  </a>
-                  <a
+                  </NavLink>
+                  <NavLink
                     href="#"
                     className="bg-white text-blue-600 p-2 rounded-full shadow-md"
                     aria-label="Follow us on Facebook"
                   >
                     <FaFacebookF size={24} />
-                  </a>
-                  <a
+                  </NavLink>
+                  <NavLink
                     href="#"
                     className="bg-white text-pink-600 p-2 rounded-full shadow-md"
                     aria-label="Follow us on Instagram"
                   >
                     <FaInstagram size={24} />
-                  </a>
-                  <a
+                  </NavLink>
+                  <NavLink
                     href="#"
                     className="bg-white text-red-600 p-2 rounded-full shadow-md"
                     aria-label="Follow us on YouTube"
                   >
                     <FaYoutube size={24} />
-                  </a>
+                  </NavLink>
                 </div>
               </div>
 
@@ -68,39 +70,38 @@ class Footer extends Component {
                 <h5 className="text-xl font-semibold mb-4">Liên kết hữu ích</h5>
                 <ul className="list-unstyled space-y-2">
                   <li>
-                    <a
+                    <NavLink
                       className="hover:underline"
-                      href="/products"
+                      to="/"
                     >
                       Sản phẩm cây cảnh
-                    </a>
+                    </NavLink>
                   </li>
+
                   <li>
-                    <a
+                    <NavLink
                       className="hover:underline"
-                      href="/care-guide"
-                    >
-                      Hướng dẫn chăm sóc cây
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      className="hover:underline"
-                      href="/blog"
+                      to="/Cam-nang-cay-canh"
                     >
                       Blog cây cảnh
-                    </a>
+                    </NavLink>
                   </li>
+
                   <li>
                     <a
                       className="hover:underline"
-                      href="/contact"
+                      href="/Ho-tro"
                     >
                       Liên hệ chúng tôi
                     </a>
                   </li>
                 </ul>
               </div>
+            </div>
+
+            <div className="w-full lg:w-4/12 px-4">
+                <h5 className="text-xl font-semibold mb-4">GOOGLE MAP</h5>
+                
             </div>
 
             {/* Footer Bottom */}

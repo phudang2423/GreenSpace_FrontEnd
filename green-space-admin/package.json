@@ -1,63 +1,38 @@
 {
-  "name": "material-dashboard-react",
-  "version": "1.9.0",
-  "description": "Material Dashboard React. Coded by Creative Tim",
-  "private": false,
-  "main": "dist/index.js",
-  "homepage": "https://themewagon.github.io/react-dashboard-material",
-  "dependencies": {
-    "@material-ui/core": "4.10.0",
-    "@material-ui/icons": "4.9.1",
-    "axios": "^1.7.9",
-    "chartist": "0.10.1",
-    "classnames": "2.2.6",
-    "history": "4.10.1",
-    "perfect-scrollbar": "1.5.0",
-    "prop-types": "15.7.2",
-    "react": "16.13.1",
-    "react-chartist": "0.14.3",
-    "react-dom": "16.13.1",
-    "react-google-maps": "9.4.5",
-    "react-router-dom": "5.2.0",
-    "react-scripts": "3.4.1",
-    "react-swipeable-views": "0.13.9"
-  },
+  "name": "admin-dashboard",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "start": "set PORT=3001 && react-scripts --openssl-legacy-provider start",
-    "build": "react-scripts --openssl-legacy-provider build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start",
-    "lint:check": "eslint . --ext=js,jsx;  exit 0",
-    "lint:fix": "eslint . --ext=js,jsx --fix;  exit 0",
-    "build-package-css": "cp src/assets/css/material-dashboard-react.css dist/material-dashboard-react.css",
-    "build-package": "npm run build-package-css && babel src --out-dir dist",
-    "predeploy": "npm run build && cp ./build/index.html ./build/404.html",
-    "deploy": "gh-pages -d build"
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/creativetimofficial/material-dashboard-react.git"
-  },
-  "keywords": [],
-  "author": "Creative Tim <hello@creative-tim.com> (https://www.creative-tim.com/)",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/creativetimofficial/material-dashboard-react/issues"
+  "dependencies": {
+    "axios": "^1.8.4",
+    "framer-motion": "^11.3.19",
+    "lucide-react": "^0.417.0",
+    "quill-image-uploader": "^1.3.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-modal": "^3.16.3",
+    "react-quill": "^2.0.0",
+    "react-router-dom": "^6.30.0",
+    "react-toastify": "^11.0.5",
+    "recharts": "^2.12.7"
   },
   "devDependencies": {
-    "eslint-config-prettier": "6.11.0",
-    "eslint-plugin-prettier": "3.1.3",
-    "gulp": "4.0.2",
-    "gulp-append-prepend": "1.0.8",
-    "prettier": "2.0.5"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": []
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "autoprefixer": "^10.4.19",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react": "^7.34.3",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "eslint-plugin-react-refresh": "^0.4.7",
+    "postcss": "^8.4.40",
+    "tailwindcss": "^3.4.7",
+    "vite": "^5.4.14"
   }
 }

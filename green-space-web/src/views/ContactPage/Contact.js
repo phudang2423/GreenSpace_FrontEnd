@@ -8,23 +8,17 @@ class Contact extends Component {
           <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
             <div className="mb-4">
               <div className="mb-6 max-w-3xl text-center sm:text-center md:mx-auto md:mb-12">
-                <p className="text-base font-semibold uppercase tracking-wide text-green-600 dark:text-blue-200">
-                  Contact
+                <p className="text-4xl font-semibold uppercase tracking-wide text-green-600 dark:text-blue-200">
+                  Liên hệ
                 </p>
-                <h2 className="font-heading mb-4 font-bold tracking-tight text-gray-900 dark:text-white text-3xl sm:text-5xl">
-                  Get in Touch
-                </h2>
-                <p className="mx-auto mt-4 max-w-3xl text-xl text-gray-600 dark:text-slate-400">
-                  In hac habitasse platea dictumst
-                </p>
+                
               </div>
             </div>
             <div className="flex items-stretch justify-center">
               <div className="grid md:grid-cols-2">
                 <div className="h-full pr-6">
                   <p className="mt-3 mb-12 text-lg text-gray-600 dark:text-slate-400">
-                    If you have any questions, concerns, or requests, please
-                    feel free to contact us. We are always happy to assist you!
+                    Nếu bạn có bất kỳ câu hỏi hoặc phản hồi, Làm ơn hãy liên hệ với chúng tôi. Chúng tôi luôn sẵn lòng hỗ trợ bạn! 
                   </p>
                   <ul className="mb-6 md:mb-0">
                     <li className="flex">
@@ -47,10 +41,10 @@ class Contact extends Component {
                       </div>
                       <div className="ml-4 mb-4">
                         <h3 className="mb-2 text-lg font-medium leading-6 text-gray-900 dark:text-white">
-                          Our Address
+                          Địa chỉ
                         </h3>
                         <p className="text-gray-600 dark:text-slate-400">
-                          Phuc Yen, Vinh Phuc, Viet Nam
+                          Khả Do, Phúc Yên, Vĩnh Phúc
                         </p>
                       </div>
                     </li>
@@ -74,7 +68,7 @@ class Contact extends Component {
                       </div>
                       <div className="ml-4 mb-4">
                         <h3 className="mb-2 text-lg font-medium leading-6 text-gray-900 dark:text-white">
-                          Contact
+                          Liên hệ
                         </h3>
                         <p className="text-gray-600 dark:text-slate-400">
                           Mobile: +84 (123) 456-7890
@@ -104,10 +98,10 @@ class Contact extends Component {
                       </div>
                       <div className="ml-4 mb-4">
                         <h3 className="mb-2 text-lg font-medium leading-6 text-gray-900 dark:text-white">
-                          Working hours
+                          Thời gian làm việc
                         </h3>
                         <p className="text-gray-600 dark:text-slate-400">
-                          Monday - Sunday: 08:00 - 20:00
+                          Thứ 2 - Thứ 7: 08:00 - 20:00
                         </p>
                       </div>
                     </li>
@@ -115,7 +109,7 @@ class Contact extends Component {
                 </div>
                 <div className="card ">
                   <h2 className="mb-4 text-2xl font-bold dark:text-white w-[20rem]">
-                    Ready to Get Started?
+                    Điền thông tin ở đây
                   </h2>
                   <form id="contactForm">
                     <div className="mb-6">
@@ -129,7 +123,7 @@ class Contact extends Component {
                             type="text"
                             id="name"
                             autoComplete="given-name"
-                            placeholder="Your name"
+                            placeholder="Tên của bạn"
                             className="mb-2 w-full rounded-md border border-gray-400 py-2 pl-2 pr-4 shadow-md dark:text-gray-300 sm:mb-0"
                             name="name"
                           />
@@ -143,7 +137,7 @@ class Contact extends Component {
                             type="email"
                             id="email"
                             autoComplete="email"
-                            placeholder="Your email address"
+                            placeholder="Địa chỉ Email của bạn"
                             className="mb-2 w-full rounded-md border border-gray-400 py-2 pl-2 pr-4 shadow-md dark:text-gray-300 sm:mb-0"
                             name="email"
                           />
@@ -159,7 +153,7 @@ class Contact extends Component {
                           name="textarea"
                           cols="30"
                           rows="5"
-                          placeholder="Write your message..."
+                          placeholder="Lời phản hồi hoặc góp ý..."
                           className="mb-2 w-full rounded-md border border-gray-400 py-2 pl-2 pr-4 shadow-md dark:text-gray-300 sm:mb-0"
                         ></textarea>
                       </div>
@@ -169,7 +163,7 @@ class Contact extends Component {
                         type="submit"
                         className="w-full bg-green-300 text-gray-700 hover:text-white hover:bg-green-600 px-6 py-3 font-xl rounded-md sm:mb-0"
                       >
-                        Send Message
+                        Gửi phản hồi
                       </button>
                     </div>
                   </form>

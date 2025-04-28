@@ -12,6 +12,29 @@ code {
     monospace;
 }
 
+.max-w-article-page{
+  max-width:810px;
+}
+
+.list-square {
+  list-style-type: square;
+}
+
+.ql-align-center {
+  text-align: center;
+}
+.ql-align-justify {
+  text-align: justify;
+}
+
+.ql-align-right {
+  text-align: right;
+}
+.ql-align-left {
+  text-align: left;
+}
+
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

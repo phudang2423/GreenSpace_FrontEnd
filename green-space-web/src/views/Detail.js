@@ -1,52 +1,53 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux"; // ✅ Thêm dòng này
 import NumDownUp from "../Component/number-down-up/NumDownUp";
-import Tabs from "../Component/TabInDetail/Tabs"; // Import Tabs component
+import Tabs from "../Component/TabInDetail/Tabs";
+import HandAddToCart from "../Component/Card-Product/AddToCart";
+import { showToast } from "../Component/Card-Product/common/ToastNotification";
+import axios from "axios";
+import { fetchCartItems } from "./Redux/CartSlice";
 
 const Detail = () => {
-  const { slug } = useParams(); // Lấy slug từ URL
+  const { slug } = useParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch(); // ✅ Thêm dòng này
   const [product, setProduct] = useState(null);
-  const [currentIndex, setCurrentIndex] = useState(0); // Giới hạn chỉ số của ảnh hiện tại
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [quantity, setQuantity] = useState(1);
 
-  // Fetch product data based on the slug
+
   useEffect(() => {
     const fetchProduct = async () => {
       try {
         const response = await fetch(`http://localhost:8080/products/${slug}`);
         const data = await response.json();
-        setProduct(data); // Lưu dữ liệu sản phẩm vào state
+        setProduct(data);
       } catch (error) {
         console.error("Error fetching product:", error);
       }
     };
 
     fetchProduct();
-  }, [slug]); // Re-fetch when the slug changes
+  }, [slug]);
 
-  // Auto slideshow
   useEffect(() => {
-    if (!product || !product.imageUrl) return; // Chỉ chạy nếu có dữ liệu sản phẩm
+    if (!product || !product.imageUrl) return;
 
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % product.imageUrl.length);
-    }, 8000); // Chuyển ảnh mỗi 8 giây
+    }, 8000);
 
-    return () => clearInterval(interval); // Dọn dẹp khi component unmount
+    return () => clearInterval(interval);
   }, [product]);
 
   const changeMainImage = (index) => {
-    setCurrentIndex(index); // Thay đổi ảnh chính khi người dùng click vào ảnh nhỏ
+    setCurrentIndex(index);
   };
 
-  if (!product) return <div>Loading...</div>; // Hiển thị loading khi chưa có dữ liệu
-
-  // Tab data
   const tabData = [
-    { id: "description", label: "Đặc điểm của cây", icon: "📄", content: <p>{product.description}</p> },
+    { id: "description", label: "Đặc điểm của cây", icon: "📄", content: <p>{product?.description}</p> },
     { id: "about", label: "Cách chăm sóc cây", icon: "ℹ️", content: <p>Trống</p> },
-    // { id: "promotion", label: "Đánh giá", icon: "🔥", content: <p>Trống</p> },
-    // { id: "shipping", label: "Vận chuyển", icon: "🚚", content: <p>Trống</p> },
     { id: "warranty", label: "Đánh giá", icon: "🔧", content: <p>Trống</p> },
     {
       id: "faq",
@@ -65,18 +66,60 @@ const Detail = () => {
     },
   ];
 
+  const handleAddToCart = async (product) => {
+    const username = localStorage.getItem("username");
+    
+    if (!username) {
+      showToast("error", "Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng!");
+      navigate("/Dang-nhap");
+      return;
+    }
+  
+    const productId = product.id || product.productId;
+    if (!productId) {
+      showToast("error", "Sản phẩm không hợp lệ!");
+      return;
+    }
+  
+    const imageUrl =
+      Array.isArray(product.imageUrl) && product.imageUrl.length > 0
+        ? product.imageUrl[0]
+        : "default-image-url.jpg";
+  
+    const cartItem = {
+      username,
+      productId,
+      name: product.name,
+      price: product.price,
+      imageUrl,
+      quantity: 1,
+      slug: product.slug,
+    };
+  
+    try {
+      const response = await axios.post("http://localhost:8080/api/cart/add", cartItem);
+      console.log(response.data); // Kiểm tra dữ liệu trả về từ server
+      dispatch(fetchCartItems(username)); // Load lại danh sách giỏ hàng từ API
+    
+      showToast("success", "Đã thêm sản phẩm vào giỏ hàng!");
+    } catch (error) {
+      console.error("Lỗi khi thêm vào giỏ hàng:", error);
+      showToast("error", "Không thể thêm sản phẩm. Vui lòng thử lại!");
+    }    
+  };
+  
+
+  if (!product) return <div>Loading...</div>;
+
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="product-image ml-32">
-          {/* Ảnh chính */}
           <img
             src={`https://drive.google.com/thumbnail?id=${product.imageUrl[currentIndex]}`}
             alt={product.name}
             className="w-full h-96 rounded-lg shadow-lg"
           />
-
-          {/* Hình ảnh nhỏ bên dưới */}
           <div className="thumbnail-images mt-4 flex gap-4 justify-center">
             {product.imageUrl.slice(0, 3).map((image, index) => (
               <img
@@ -86,13 +129,12 @@ const Detail = () => {
                 className={`w-20 h-20 object-cover rounded-lg cursor-pointer transition-all duration-300 ${
                   currentIndex === index ? "border-2 border-blue-500" : ""
                 }`}
-                onClick={() => changeMainImage(index)} // Click vào ảnh nhỏ để thay đổi ảnh lớn
+                onClick={() => changeMainImage(index)}
               />
             ))}
           </div>
         </div>
 
-        {/* Thông tin sản phẩm */}
         <div className="product-info">
           <h2 className="text-3xl font-bold text-gray-800 mb-4">{product.name}</h2>
           <div className="flex items-center gap-4 mb-6">
@@ -105,37 +147,25 @@ const Detail = () => {
               </span>
             )}
           </div>
-
-          {/* Số lượng còn lại */}
           <p className="text-lg text-gray-700 mb-4">Còn lại: {product.stockQuantity} sản phẩm</p>
-
           <div className="flex space-x-28 mb-8">
-            <NumDownUp className="mb-2" />
+          <NumDownUp quantity={quantity} setQuantity={setQuantity} />
           </div>
-
-          {/* Thêm vào giỏ hàng và nút quay lại */}
           <div className="flex gap-4 mb-6">
             <button
               className="px-6 py-2 bg-gray-300 text-black rounded-lg hover:text-white hover:bg-green-700 transition duration-300"
-              onClick={() => alert("Thêm vào giỏ hàng")}
+              onClick={() => handleAddToCart(product)}
             >
               Thêm vào giỏ hàng
             </button>
+
             <button
               className="px-6 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-red-500 hover:text-white transition duration-300"
               onClick={() => navigate("/")}
             >
               Mua hàng
             </button>
-            <button
-              className="px-6 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-blue-500 hover:text-white transition duration-300"
-              onClick={() => navigate("/")}
-            >
-              Quay lại
-            </button>
           </div>
-
-          {/* Các nút chat với Zalo, Facebook */}
           <div className="flex gap-4">
             <button
               className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-800 transition duration-300"
@@ -147,7 +177,6 @@ const Detail = () => {
         </div>
       </div>
 
-      {/* Tabs Component */}
       <div className="mt-10">
         <Tabs tabs={tabData} />
       </div>

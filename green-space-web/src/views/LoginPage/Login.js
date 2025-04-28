@@ -1,13 +1,14 @@
 import React, { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom"; // Sử dụng useNavigate
+import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { showToast } from "../../Component/Card-Product/common/ToastNotification";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState(""); // State để lưu lỗi
-  const [showPassword, setShowPassword] = useState(false); // State để kiểm soát việc ẩn/hiện mật khẩu
-  const navigate = useNavigate(); // Hook điều hướng
+  const [errorMessage, setErrorMessage] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -17,38 +18,40 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setErrorMessage(""); // Reset lỗi
+    setErrorMessage(""); // Reset lỗi trước khi gửi yêu cầu
 
     try {
       // Gửi yêu cầu đăng nhập đến backend
-      const response = await axios.post("http://localhost:8080/login", {
+      const response = await axios.post("http://localhost:8080/api/auth/login", {
         username,
-        password,
+        password, // Gửi mật khẩu thô, backend sẽ kiểm tra với mật khẩu đã mã hóa
       });
 
-      // Lưu username vào localStorage
+      // Hiển thị thông báo đăng nhập thành công
+      showToast("success", "Đăng nhập thành công!");
+
+      // Lưu thông tin người dùng (username) vào localStorage
       localStorage.setItem("username", username);
 
-      // Hiển thị thông báo đăng nhập thành công
-      alert(response.data); 
-
-      // Điều hướng đến trang dashboard sau khi đăng nhập thành công
-      navigate("/"); 
+      // Điều hướng tới trang chủ
+      navigate("/");
     } catch (error) {
-      // Nếu có lỗi từ backend (401 hoặc lỗi khác)
       console.error("Lỗi khi đăng nhập:", error);
-      if (error.response && error.response.status === 401) {
-        // Nếu lỗi 401 Unauthorized, hiển thị thông báo lỗi
-        setErrorMessage("Thông tin đăng nhập không hợp lệ");
+
+      // Xử lý lỗi từ backend
+      if (error.response && error.response.data) {
+        const errorMessage = error.response.data.message || "Sai tài khoản hoặc mật khẩu";
+        setErrorMessage(errorMessage);
+        showToast("error", errorMessage);
       } else {
-        // Nếu có lỗi khác, hiển thị thông báo lỗi chung
-        setErrorMessage("Đăng nhập thất bại. Vui lòng thử lại.");
+        setErrorMessage("Đã xảy ra lỗi, vui lòng thử lại sau!");
+        showToast("error", "Đã xảy ra lỗi, vui lòng thử lại sau!");
       }
     }
   };
 
   const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword); // Đảo trạng thái hiển thị mật khẩu
+    setShowPassword(!showPassword); // Đảo trạng thái ẩn/hiện mật khẩu
   };
 
   return (
@@ -85,7 +88,7 @@ const Login = () => {
               Mật khẩu:
             </label>
             <input
-              type={showPassword ? "text" : "password"} // Nếu showPassword true, hiển thị text, ngược lại hiển thị password
+              type={showPassword ? "text" : "password"}
               id="password"
               name="password"
               value={password}
@@ -112,9 +115,15 @@ const Login = () => {
         </form>
 
         <div className="flex justify-between items-center mt-6">
-          <NavLink to="/SignIn" className="text-sm text-indigo-600 hover:underline">
+          <NavLink to="/Dang-ky" className="text-sm text-indigo-600 hover:underline">
             Chưa có tài khoản? Đăng ký
           </NavLink>
+          <NavLink to="/RessetPassword" className="text-sm text-gray-500 hover:underline">
+            Quên mật khẩu?
+          </NavLink>
+        </div>
+
+        <div className="text-center mt-4">
           <NavLink to="/" className="text-sm text-gray-500 hover:underline">
             Trở về trang chủ
           </NavLink>
